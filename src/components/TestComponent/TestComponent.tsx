@@ -11,5 +11,7 @@ export interface TestComponentProps {
 }
 
 export const TestComponent: React.FC<TestComponentProps> = ({ text }) => (
-  <Wrapper>{text ? text : 'Test Component'}</Wrapper>
+  <Wrapper>
+    {text}
+  </Wrapper>
 );
