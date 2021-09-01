@@ -1,13 +1,13 @@
 import React, { VFC } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-import { TestComponent, ReactJSONParser } from './reactComponentLib';
+import { ReactJSONParser } from './reactComponentLib';
 
-const StyledDiv = styled.div`
-  padding: 10px;
-  background-color: blue;
-  color: white;
-`;
+// const StyledDiv = styled.div`
+//   padding: 10px;
+//   background-color: blue;
+//   color: white;
+// `;
 
 const blocks = [
   {
@@ -31,7 +31,7 @@ const blocks = [
               width: '200px',
               height: '200px',
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
             },
             blocks: [
               {
@@ -41,9 +41,20 @@ const blocks = [
                     color: 'yellow',
                     textAlign: 'center',
                     fontStyle: 'italic',
-                    padding: '10px'
+                    padding: '10px',
                   },
                   value: 'Praise The Lord, Hallelujah!',
+                },
+              },
+              {
+                type: 'div',
+                data: {
+                  styles: {
+                    backgroundColor: 'blue',
+                    color: 'white',
+                    padding: '10px',
+                  },
+                  blocks: [{ type: 'text', data: { styles: { margin: '4px' }, value: '!!!!!' } }],
                 },
               },
             ],
