@@ -50,31 +50,72 @@ var TestComponent = function (_a) {
 };
 var templateObject_1;
 
-var Div = function (_a) {
-    var styles = _a.styles, blocks = _a.blocks;
-    var _b = reactDnd.useDrag(function () { return ({
-        type: "div",
-        item: { id: Math.random() },
-        collect: function (monitor) { return ({
-            opacity: monitor.isDragging() ? 0.4 : 1,
-            isDragging: monitor.isDragging(),
+function selectBackgroundColor(isActive, canDrop) {
+    if (isActive) {
+        return "darkgreen";
+    }
+    else if (canDrop) {
+        return "darkkhaki";
+    }
+    else {
+        return "lightblue";
+    }
+}
+var DropZone = function () {
+    var DivStyled = styled__default['default'].div({
+        marginTop: "20px",
+        width: 300,
+        height: 300,
+        background: "lightblue",
+        textAlign: "center",
+        fontSize: "1rem",
+        lineHeight: "normal",
+    });
+    var _a = reactDnd.useDrop(function () { return ({
+        accept: "div",
+        drop: function () { return ({
+            name: "drop-zone-1",
         }); },
-    }); }, []), _c = _b[0], opacity = _c.opacity, isDragging = _c.isDragging, drag = _b[1];
-    var _d = reactDnd.useDrop({
-        accept: ["div"],
-        drop: onDrop,
         collect: function (monitor) { return ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }); },
-    }), _e = _d[0], isOver = _e.isOver, canDrop = _e.canDrop, drop = _d[1];
-    function onDrop() {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        console.log("onDrop :>> ", args, blocks, styles);
-    }
+    }); }, []), _b = _a[0], canDrop = _b.canDrop, isOver = _b.isOver, drop = _a[1];
+    var isActive = canDrop && isOver;
+    var backgroundColor = selectBackgroundColor(isActive, canDrop);
+    return (React__default['default'].createElement(DivStyled, { ref: drop, style: { backgroundColor: backgroundColor } }, isActive ? "Release to drop" : "Drag a box here"));
+};
+var Div = function (_a) {
+    var styles = _a.styles, blocks = _a.blocks, id = _a.id;
+    var blockId = React.useState(Date.now())[0];
+    var _b = reactDnd.useDrag(function () { return ({
+        type: "div",
+        item: { blockId: blockId, id: id, styles: styles, blocks: blocks },
+        end: function (item, monitor) {
+            var dropResult = monitor.getDropResult();
+            var targetIds = monitor.getTargetIds();
+            console.group("useDrag :: onDragEnd");
+            console.log("item :: :>> ", item, monitor);
+            console.log("targetIds :: :>> ", targetIds);
+            console.log("dropResult :: :>> ", dropResult);
+            console.groupEnd();
+        },
+        collect: function (monitor) { return ({
+            opacity: monitor.isDragging() ? 0.4 : 1,
+            isDragging: monitor.isDragging(),
+        }); },
+    }); }, [blocks]), _c = _b[0], opacity = _c.opacity, isDragging = _c.isDragging, drag = _b[1];
+    var _d = reactDnd.useDrop(function () { return ({
+        accept: "div",
+        drop: function (item, monitor) {
+            console.log("useDrop :: onDrop :: item :>> ", id, item, monitor);
+            return item;
+        },
+        collect: function (monitor) { return ({
+            isOver: monitor.isOver(),
+        }); },
+    }); }, [blocks]), isOver = _d[0].isOver, drop = _d[1];
+    console.log("isOver ::  :>> ", isOver);
     var mergeRefs = function () {
         var refs = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -97,14 +138,13 @@ var Div = function (_a) {
             }
         };
     };
-    var isActive = isOver && canDrop;
     var border = styles.border;
-    if (isActive) {
+    if (isOver) {
         border = "#def636 thin solid";
     }
-    else if (canDrop) {
-        border = "#36daf6 thin dashed";
-    }
+    // else if (canDrop) {
+    //   border = "#36daf6 thin dashed";
+    // }
     var DivStyled = styled__default['default'].div(__assign(__assign({}, styles), { border: border }));
     return (React__default['default'].createElement(DivStyled, { ref: mergeRefs(drag, drop) },
         React__default['default'].createElement(JSON2React, { blocks: blocks })));
@@ -121,12 +161,19 @@ var Registry = {
 var JSON2React = function (_a) {
     var blocks = _a.blocks;
     //   console.log("blocks :>> ", blocks);
-    return (React__default['default'].createElement(reactDnd.DndProvider, { backend: reactDndHtml5Backend.HTML5Backend }, blocks.map(function (block, idx) {
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, blocks.map(function (block, idx) {
         var BlockComponent = Registry[block.type];
         // console.log('BlockComponent :>> ', BlockComponent, block.data);
         return React__default['default'].createElement(BlockComponent, __assign({ key: idx }, block.data));
     })));
 };
+var JsonComponentRenderer = function (_a) {
+    var blocks = _a.blocks;
+    console.log("JsonComponentRenderer :>> ", blocks);
+    return (React__default['default'].createElement(reactDnd.DndProvider, { backend: reactDndHtml5Backend.HTML5Backend },
+        React__default['default'].createElement(JSON2React, { blocks: blocks }),
+        React__default['default'].createElement(DropZone, null)));
+};
 
-exports.ReactJSONParser = JSON2React;
+exports.ReactJSONParser = JsonComponentRenderer;
 exports.TestComponent = TestComponent;

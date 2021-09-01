@@ -22,6 +22,7 @@ const blocks = [
         alignItems: 'center',
         alignContent: 'center',
       },
+      id: '1',
       blocks: [
         {
           type: 'div',
@@ -33,6 +34,7 @@ const blocks = [
               display: 'flex',
               alignItems: 'center',
             },
+            id: '1.1',
             blocks: [
               {
                 type: 'text',
@@ -43,6 +45,7 @@ const blocks = [
                     fontStyle: 'italic',
                     padding: '10px',
                   },
+                  id: '1.1.1',
                   value: 'Praise The Lord, Hallelujah!',
                 },
               },
@@ -54,7 +57,17 @@ const blocks = [
                     color: 'white',
                     padding: '10px',
                   },
-                  blocks: [{ type: 'text', data: { styles: { margin: '4px' }, value: '!!!!!' } }],
+                  id: '1.1.2',
+                  blocks: [
+                    {
+                      type: 'text',
+                      data: {
+                        id: '1.1.1.1',
+                        styles: { margin: '4px' },
+                        value: '!!!!!',
+                      },
+                    },
+                  ],
                 },
               },
             ],
