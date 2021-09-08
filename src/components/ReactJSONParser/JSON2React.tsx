@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import '../../styles/tailwind.css'
 import styled from "styled-components";
 import { ConnectDropTarget, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";

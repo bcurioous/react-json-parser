@@ -1,4 +1,5 @@
 import React from "react";
+import '../../styles/tailwind.css';
 interface IJSON2ReactProps {
     blocks: Array<any>;
 }

@@ -3,6 +3,8 @@ import React, { VFC } from 'react';
 
 import { ReactJSONParser } from './reactComponentLib';
 
+import './reactComponentLib/index.css';
+
 // const StyledDiv = styled.div`
 //   padding: 10px;
 //   background-color: blue;
@@ -79,7 +81,7 @@ const blocks = [
 ];
 
 export const App: VFC = () => (
-  <div>
+  <div className="w-8 h-8">
     <ReactJSONParser blocks={blocks} />
     {/* <TestComponent text="Styled Component from React library" />
     <StyledDiv>Example App styled component</StyledDiv> */}

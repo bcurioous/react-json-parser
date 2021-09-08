@@ -1,4 +1,6 @@
 import typescript from "rollup-plugin-typescript2";
+import postcss from "rollup-plugin-postcss";
+
 import pkg from "./package.json";
 
 export default [
@@ -7,8 +9,17 @@ export default [
     external: Object.keys(pkg.peerDependencies || {}),
     plugins: [
       typescript({
-        typescript: require("typescript")
-      })
+        typescript: require("typescript"),
+      }),
+      postcss({
+        config: {
+          path: "./postcss.config.js",
+        },
+        extensions: [".css"],
+        extract: true,
+        // minimize: isProduction,
+        modules: true,
+      }),
     ],
     output: [
       { file: pkg.main, format: "cjs" },
@@ -16,8 +27,8 @@ export default [
       {
         file: "example/src/reactComponentLib/index.js",
         format: "es",
-        banner: "/* eslint-disable */"
-      }
-    ]
-  }
+        banner: "/* eslint-disable */",
+      },
+    ],
+  },
 ];

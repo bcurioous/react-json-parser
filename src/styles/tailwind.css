@@ -1,0 +1,34 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* @import "./menubar.css";
+
+.curve:before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: -7px;
+  right: 0;
+  border-color: rgba(209, 213, 219, var(--tw-bg-opacity));
+  border-bottom-right-radius: 8px;
+  border-width: 0 1px 1px 0;
+  box-shadow: 1px 4px 0 rgba(209, 213, 219, var(--tw-bg-opacity));
+}
+
+.curve:after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  bottom: -7px;
+  right: 0;
+  border-color: rgba(209, 213, 219, var(--tw-bg-opacity));
+  border-top-right-radius: 8px;
+  box-shadow: 4px 0px 0 rgba(209, 213, 219, var(--tw-bg-opacity));
+  border-width: 1px 1px 0 0;
+} */
